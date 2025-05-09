@@ -1,0 +1,18 @@
+{
+  "results": [
+    {
+      "file_path": "docs/mudit/formD_ver.jpg",
+      "digitally_signed": false,
+      "verification_signature_present": false,
+      "declaration_signature_present": false,
+      "confidence": 0.9
+    },
+    {
+      "file_path": "docs/mudit/formD.jpg",
+      "digitally_signed": false,
+      "verification_signature_present": true,
+      "declaration_signature_present": true,
+      "confidence": 1.0
+    }
+  ]
+}

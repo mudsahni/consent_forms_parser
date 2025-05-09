@@ -1,0 +1,3 @@
+file_path,digitally_signed,verification_signature_present,declaration_signature_present,confidence
+docs/mudit/formD_ver.jpg,False,False,False,0.9
+docs/mudit/formD.jpg,False,True,True,1.0

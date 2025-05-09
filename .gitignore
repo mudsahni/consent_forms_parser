@@ -1,0 +1,6 @@
+./test.sh
+./env
+./docs
+./output
+./temp_uploads
+./venv

@@ -1,0 +1,34 @@
+{
+  "results": [
+    {
+      "file_path": "docs/mudit/formD_ver.jpg",
+      "has_verification": false,
+      "has_declaration": false,
+      "verification_signature_present": false,
+      "declaration_signature_present": true,
+      "digitally_signed": false,
+      "gemini_response": {
+        "has_verification_title": false,
+        "has_declaration_title": false,
+        "verification_signature_present": false,
+        "declaration_signature_present": true,
+        "confidence": 0.9
+      }
+    },
+    {
+      "file_path": "docs/mudit/formD.jpg",
+      "has_verification": false,
+      "has_declaration": false,
+      "verification_signature_present": true,
+      "declaration_signature_present": true,
+      "digitally_signed": false,
+      "gemini_response": {
+        "has_verification_title": true,
+        "has_declaration_title": true,
+        "verification_signature_present": true,
+        "declaration_signature_present": true,
+        "confidence": 1.0
+      }
+    }
+  ]
+}
