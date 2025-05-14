@@ -7,15 +7,14 @@
       "verification_signature_present": true,
       "declaration_signature_present": true,
       "digitally_signed": false,
-      "claim_amount": 1247996.0,
+      "claim_amount": 1247996,
       "gemini_response": {
-        "has_verification_section": true,
-        "has_declaration_section": true,
+        "has_verification_title": true,
+        "has_declaration_title": true,
         "verification_signature_present": true,
         "declaration_signature_present": true,
-        "claim_amount": 1247996.0,
-        "claim_currency": null,
-        "confidence_score": 1.0
+        "confidence": 0.95,
+        "claim_amount": 1247996
       }
     },
     {
@@ -27,13 +26,12 @@
       "digitally_signed": false,
       "claim_amount": 214500.0,
       "gemini_response": {
-        "has_verification_section": true,
-        "has_declaration_section": true,
+        "has_verification_title": true,
+        "has_declaration_title": true,
         "verification_signature_present": true,
         "declaration_signature_present": true,
-        "claim_amount": 214500.0,
-        "claim_currency": "Rs",
-        "confidence_score": 1.0
+        "confidence": 1.0,
+        "claim_amount": 214500.0
       }
     },
     {
@@ -43,15 +41,14 @@
       "verification_signature_present": false,
       "declaration_signature_present": true,
       "digitally_signed": false,
-      "claim_amount": 214500,
+      "claim_amount": 214500.0,
       "gemini_response": {
-        "has_verification_section": false,
-        "has_declaration_section": false,
+        "has_verification_title": false,
+        "has_declaration_title": false,
         "verification_signature_present": false,
         "declaration_signature_present": true,
-        "claim_amount": 214500,
-        "claim_currency": "INR",
-        "confidence_score": 0.9
+        "confidence": 0.95,
+        "claim_amount": 214500.0
       }
     }
   ]

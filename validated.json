@@ -3,17 +3,17 @@
     {
       "file_path": "docs/yash/FORM D.pdf",
       "digitally_signed": false,
-      "verification_signature_present": false,
-      "declaration_signature_present": false,
-      "confidence": 0.0,
-      "claim_amount": 1247996.0
+      "verification_signature_present": true,
+      "declaration_signature_present": true,
+      "confidence": 0.95,
+      "claim_amount": 1247996
     },
     {
       "file_path": "docs/yash/formd_abc.jpg",
       "digitally_signed": false,
-      "verification_signature_present": false,
-      "declaration_signature_present": false,
-      "confidence": 0.0,
+      "verification_signature_present": true,
+      "declaration_signature_present": true,
+      "confidence": 1.0,
       "claim_amount": 214500.0
     },
     {
@@ -21,8 +21,8 @@
       "digitally_signed": false,
       "verification_signature_present": false,
       "declaration_signature_present": false,
-      "confidence": 0.0,
-      "claim_amount": 214500
+      "confidence": 0.95,
+      "claim_amount": 214500.0
     }
   ]
 }

@@ -2,6 +2,7 @@ import os
 import json
 import argparse
 import tempfile
+import time
 from typing import Dict, List, Optional
 import base64
 from google import genai
@@ -313,37 +314,25 @@ class DocumentProcessor:
 
         # Prepare the prompt
         prompt = """
-        Analyze this document to identify verification/declaration sections and signatures. Focus on:
+        Analyze this document and determine if it contains any sections titled 'Verification' or 'Declaration', 
+        or any content that appears to be an official verification or declaration statement where someone might 
+        sign to verify or declare something. Look for signature lines, signature blocks, signature images or actual 
+        handwritten signatures and not just a typed name.  The document can have multiple pages and the signature for 
+        a section could be on a subsequent page. Also check for signatures in the subsequent page if you find the 
+        relevant section in the previous page. Extract any monetary values labeled as 'claim amount', 'claimed sum', '
+        requested amount', 'total claim', or similar terminology.
 
-        1. TITLES: Locate any sections explicitly titled 'Verification', 'Declaration', 'Attestation', 'Certification', 'Affidavit', 'Sworn Statement', or similar legal confirmation headings.
-
-        2. SIGNATURES: Identify any:
-           - Actual handwritten signatures (not typed names)
-           - Digital signatures
-           - Signature blocks with completed signatures
-           - Signature images
-
-        3. RELATIONSHIP: When finding verification/declaration sections, check subsequent pages for associated signatures.
-
-        4. CLAIM INFORMATION: Extract any monetary values labeled as 'claim amount', 'claimed sum', 'requested amount', 'total claim', or similar terminology.
-
-        5. CONFIDENCE ASSESSMENT: Evaluate your confidence in each finding on a scale from 0.0 to 1.0, where:
-           - 0.0-0.3: Low confidence (unclear or ambiguous elements)
-           - 0.4-0.7: Medium confidence (somewhat clear but with potential uncertainty)
-           - 0.8-1.0: High confidence (clearly identified elements)
-
-        Return ONLY a valid JSON object with this exact structure:
+        Return ONLY a valid JSON with the following format:
         {
-          "has_verification_section": boolean,
-          "has_declaration_section": boolean,
-          "verification_signature_present": boolean,
-          "declaration_signature_present": boolean,
+          "has_verification_title": true/false,
+          "has_declaration_title": true/false,
+          "verification_signature_present": true/false,
+          "declaration_signature_present": true/false,
+          "confidence": 0.0-1.0
           "claim_amount": number or null,
-          "claim_currency": string or null,
-          "confidence_score": number (0.0-1.0)
         }
 
-        Provide ONLY the JSON object with no additional explanations, comments, or formatting.
+        Provide NO explanation, just a valid JSON.
         """
         try:
             # Send to Gemini
