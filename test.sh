@@ -1,1 +1,1 @@
- python3 main.py --folder docs/mudit --api-key AIzaSyBPALrPmGee03D4DCGp-Arcjdg343gd32s
+ python3 main.py --folder docs/yash --api-key

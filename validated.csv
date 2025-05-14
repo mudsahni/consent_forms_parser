@@ -1,3 +1,4 @@
-file_path,digitally_signed,verification_signature_present,declaration_signature_present,confidence
-docs/mudit/formD_ver.jpg,False,False,False,0.9
-docs/mudit/formD.jpg,False,True,True,1.0
+file_path,digitally_signed,verification_signature_present,declaration_signature_present,confidence,claim_amount
+docs/yash/FORM D.pdf,False,False,False,0.0,1247996.0
+docs/yash/formd_abc.jpg,False,False,False,0.0,214500.0
+docs/yash/abc_formd.jpg,False,False,False,0.0,214500

@@ -1,0 +1,3 @@
+([('main',
+   '/Users/musahni/Documents/projects/signIdentifier/dist/main',
+   'EXECUTABLE')],)

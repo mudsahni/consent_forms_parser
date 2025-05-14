@@ -313,24 +313,38 @@ class DocumentProcessor:
 
         # Prepare the prompt
         prompt = """
-        Analyze this document and determine if it contains any sections titled 'Verification' or 'Declaration', 
-        or any content that appears to be an official verification or declaration statement where someone might 
-        sign to verify or declare something. Look for signature lines, signature blocks, signature images or actual 
-        signatures. The document can have multiple pages and the signature for a section could be on a subsequent page.
-        Also check for signatures in the subsequent page if you find the relevant section in the previous page.
+        Analyze this document to identify verification/declaration sections and signatures. Focus on:
 
-        Return ONLY a valid JSON with the following format:
+        1. TITLES: Locate any sections explicitly titled 'Verification', 'Declaration', 'Attestation', 'Certification', 'Affidavit', 'Sworn Statement', or similar legal confirmation headings.
+
+        2. SIGNATURES: Identify any:
+           - Actual handwritten signatures (not typed names)
+           - Digital signatures
+           - Signature blocks with completed signatures
+           - Signature images
+
+        3. RELATIONSHIP: When finding verification/declaration sections, check subsequent pages for associated signatures.
+
+        4. CLAIM INFORMATION: Extract any monetary values labeled as 'claim amount', 'claimed sum', 'requested amount', 'total claim', or similar terminology.
+
+        5. CONFIDENCE ASSESSMENT: Evaluate your confidence in each finding on a scale from 0.0 to 1.0, where:
+           - 0.0-0.3: Low confidence (unclear or ambiguous elements)
+           - 0.4-0.7: Medium confidence (somewhat clear but with potential uncertainty)
+           - 0.8-1.0: High confidence (clearly identified elements)
+
+        Return ONLY a valid JSON object with this exact structure:
         {
-          "has_verification_title": true/false,
-          "has_declaration_title": true/false,
-          "verification_signature_present": true/false,
-          "declaration_signature_present": true/false,
-          "confidence": 0.0-1.0
+          "has_verification_section": boolean,
+          "has_declaration_section": boolean,
+          "verification_signature_present": boolean,
+          "declaration_signature_present": boolean,
+          "claim_amount": number or null,
+          "claim_currency": string or null,
+          "confidence_score": number (0.0-1.0)
         }
 
-        Provide NO explanation, just a valid JSON.
+        Provide ONLY the JSON object with no additional explanations, comments, or formatting.
         """
-
         try:
             # Send to Gemini
             response = self.client.models.generate_content(
@@ -356,7 +370,8 @@ class DocumentProcessor:
                     "has_declaration": False,
                     "verification_signature_present": False,
                     "declaration_signature_present": False,
-                    "digitally_signed": is_signed
+                    "digitally_signed": is_signed,
+                    "claim_amount": None
                 }
 
             # Clean up the response if it contains Markdown code blocks
@@ -374,6 +389,7 @@ class DocumentProcessor:
                 "verification_signature_present": gemini_result.get("verification_signature_present", False),
                 "declaration_signature_present": gemini_result.get("declaration_signature_present", False),
                 "digitally_signed": is_signed,
+                "claim_amount": gemini_result.get("claim_amount", None),
                 "gemini_response": gemini_result
             }
 
@@ -386,7 +402,8 @@ class DocumentProcessor:
                 "has_declaration": False,
                 "verification_signature_present": False,
                 "declaration_signature_present": False,
-                "digitally_signed": is_signed
+                "digitally_signed": is_signed,
+                "claim_amount": None
             }
 
     def process_folder(self, folder_path: str) -> List[Dict]:
@@ -450,7 +467,7 @@ def validate_and_reformat(input_data: Dict[str, List[Dict[str, Any]]]) -> Dict[s
     for item in input_data.get("results", []):
         file_path = item.get("file_path", "")
         digitally_signed = item.get("digitally_signed", False)
-
+        claim_amount = item.get("claim_amount", None)
         # Get Gemini response
         gemini_response = item.get("gemini_response", {})
 
@@ -482,7 +499,8 @@ def validate_and_reformat(input_data: Dict[str, List[Dict[str, Any]]]) -> Dict[s
             "digitally_signed": digitally_signed,
             "verification_signature_present": verification_signature_present,
             "declaration_signature_present": declaration_signature_present,
-            "confidence": confidence
+            "confidence": confidence,
+            "claim_amount": claim_amount,
         }
 
         results.append(reformatted_result)
